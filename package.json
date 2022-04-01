@@ -1,5 +1,5 @@
 {
-  "name": "generator-vuef",
+  "name": "generator-vuegen",
   "version": "0.1.0",
   "description": "",
   "files": [
@@ -9,6 +9,7 @@
     "yeoman-generator"
   ],
   "dependencies": {
+    "jhipster-core": "^7.3.4",
     "pg": "^8.7.3",
     "yeoman-generator": "^1.1.1"
   }

@@ -1,0 +1,14 @@
+--根据本表名获取参考表名 即是manyToOne
+select bb.relname bbname,ckb.relname ckbname from 
+pg_class bb,
+pg_class ckb,
+(select conrelid bbid, confrelid ckbid  from pg_CONSTRAINT where pg_CONSTRAINT.contype='f') gx
+where bb.oid = gx.bbid and ckb.oid = gx.ckbid and  bb.relname = 'jcsj_hjcy'
+
+
+--根据本表名获取参考表名 即是oneToMany
+select bb.relname bbname,ckb.relname ckbname from 
+pg_class bb,
+pg_class ckb,
+(select conrelid bbid, confrelid ckbid  from pg_CONSTRAINT where pg_CONSTRAINT.contype='f') gx
+where bb.oid = gx.bbid and ckb.oid = gx.ckbid and  ckb.relname = 'jcsj_jbxx'

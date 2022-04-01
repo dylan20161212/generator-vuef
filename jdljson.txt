@@ -1,0 +1,1388 @@
+{
+	"applications": [],
+	"deployments": [],
+	"constants": {},
+	"entities": [{
+		"annotations": [],
+		"name": "JcsjJBXX",
+		"tableName": "JcsjJBXX",
+		"body": [{
+			"name": "ssxq",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 所属辖区 ",
+			"annotations": []
+		}, {
+			"name": "rklx",
+			"type": "Integer",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 人口类型 ",
+			"annotations": []
+		}, {
+			"name": "xm",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 姓名 ",
+			"annotations": []
+		}, {
+			"name": "xjd",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 现居地 ",
+			"annotations": []
+		}, {
+			"name": "cym",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 曾用名 ",
+			"annotations": []
+		}, {
+			"name": "hjd",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 户籍地 ",
+			"annotations": []
+		}, {
+			"name": "hjmLxz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 户籍门(楼)详址 ",
+			"annotations": []
+		}, {
+			"name": "jg",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 籍贯 ",
+			"annotations": []
+		}, {
+			"name": "sfzhm",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 身份证号码 ",
+			"annotations": []
+		}, {
+			"name": "mz",
+			"type": "Integer",
+			"validations": [],
+			"javadoc": " 民族 ",
+			"annotations": []
+		}, {
+			"name": "zzmm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 政治面貌 ",
+			"annotations": []
+		}, {
+			"name": "xb",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 性别 ",
+			"annotations": []
+		}, {
+			"name": "csrq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 出生日期 ",
+			"annotations": []
+		}, {
+			"name": "lxfs",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 联系方式 ",
+			"annotations": []
+		}, {
+			"name": "zjxy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 宗教信仰 ",
+			"annotations": []
+		}, {
+			"name": "xl",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 学 历 ",
+			"annotations": []
+		}, {
+			"name": "zylb",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 职业类别 ",
+			"annotations": []
+		}, {
+			"name": "zy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 职业 ",
+			"annotations": []
+		}, {
+			"name": "hyzk",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 婚姻状况 ",
+			"annotations": []
+		}, {
+			"name": "jthh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 家庭户号 ",
+			"annotations": []
+		}, {
+			"name": "xzyhzgx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 选择与户主关系 ",
+			"annotations": []
+		}, {
+			"name": "ldyy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 流动原因 ",
+			"annotations": []
+		}, {
+			"name": "bzlx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 办证类型 ",
+			"annotations": []
+		}, {
+			"name": "zjhm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 证件号码 ",
+			"annotations": []
+		}, {
+			"name": "djrq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 登记日期 ",
+			"annotations": []
+		}, {
+			"name": "zjdqrq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 证件到期日期 ",
+			"annotations": []
+		}, {
+			"name": "zslx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 住所类型 ",
+			"annotations": []
+		}, {
+			"name": "sfzdgzry",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否 重点关注人员 ",
+			"annotations": []
+		}, {
+			"name": "rktp",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 人口图片 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 基本信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjHJCY",
+		"tableName": "JcsjHJCY",
+		"body": [{
+			"name": "ssxq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 所属辖区 ",
+			"annotations": []
+		}, {
+			"name": "xm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 姓名 ",
+			"annotations": []
+		}, {
+			"name": "zjhm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 证件号码 ",
+			"annotations": []
+		}, {
+			"name": "xb",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 性别 ",
+			"annotations": []
+		}, {
+			"name": "lxfs",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 联系方式 ",
+			"annotations": []
+		}, {
+			"name": "yhzgx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 与户主关系 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 户籍成员\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjFJXX",
+		"tableName": "JcsjFJXX",
+		"body": [{
+			"name": "ssxq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 所属辖区 ",
+			"annotations": []
+		}, {
+			"name": "fjxx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 房间信息 ",
+			"annotations": []
+		}, {
+			"name": "rzsj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 入住时间 ",
+			"annotations": []
+		}, {
+			"name": "rzyy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 入住原因 ",
+			"annotations": []
+		}, {
+			"name": "rzzt",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 入住状态 ",
+			"annotations": []
+		}, {
+			"name": "sfzyjzd",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否主要居住地 ",
+			"annotations": []
+		}, {
+			"name": "bz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 备注 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 房间信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjZFJL",
+		"tableName": "JcsjZFJL",
+		"body": [{
+			"name": "fjbm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 房间编码 ",
+			"annotations": []
+		}, {
+			"name": "rzsj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 入住时间 ",
+			"annotations": []
+		}, {
+			"name": "lcsj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 流出时间 ",
+			"annotations": []
+		}, {
+			"name": "lcqx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 流出去向 ",
+			"annotations": []
+		}, {
+			"name": "lcyy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 流出原因 ",
+			"annotations": []
+		}, {
+			"name": "lcdz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 流出地址 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 住房记录\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjJYXX",
+		"tableName": "JcsjJYXX",
+		"body": [{
+			"name": "mc",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 名称 ",
+			"annotations": []
+		}, {
+			"name": "wglx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 务工类型 ",
+			"annotations": []
+		}, {
+			"name": "jrdwsj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 进入单位时间 ",
+			"annotations": []
+		}, {
+			"name": "sfjzzdw",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否居住在单位 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修 改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 就业信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjZFXX",
+		"tableName": "JcsjZFXX",
+		"body": [{
+			"name": "ssxq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 所属辖区 ",
+			"annotations": []
+		}, {
+			"name": "ldmc",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 楼栋名称 ",
+			"annotations": []
+		}, {
+			"name": "ssdy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 所属单元 ",
+			"annotations": []
+		}, {
+			"name": "fjmc",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 房间 名称 ",
+			"annotations": []
+		}, {
+			"name": "jzmj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 建筑面积 ",
+			"annotations": []
+		}, {
+			"name": "zhsl",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 住户数量 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 住房信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjQYJBXX",
+		"tableName": "JcsjQYJBXX",
+		"body": [{
+			"name": "ssxq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 所属辖区 ",
+			"annotations": []
+		}, {
+			"name": "qymc",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 企业名称 ",
+			"annotations": []
+		}, {
+			"name": "qydz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 企业地址 ",
+			"annotations": []
+		}, {
+			"name": "fddbr",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 法定代表人 ",
+			"annotations": []
+		}, {
+			"name": "lxdh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 联系电话 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 企业基本信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjLDXX",
+		"tableName": "JcsjLDXX",
+		"body": [{
+			"name": "ldmc",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 楼栋名称 ",
+			"annotations": []
+		}, {
+			"name": "ssxq",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 所属辖区 ",
+			"annotations": []
+		}, {
+			"name": "jzwxz",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 建筑物性质 ",
+			"annotations": []
+		}, {
+			"name": "jzwyt",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 建筑物用途 ",
+			"annotations": []
+		}, {
+			"name": "jzwlx",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 建筑物类型 ",
+			"annotations": []
+		}, {
+			"name": "jzcs",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 建筑层数 ",
+			"annotations": []
+		}, {
+			"name": "ldbm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 楼 栋编码 ",
+			"annotations": []
+		}, {
+			"name": "xxdz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 详细地址 ",
+			"annotations": []
+		}, {
+			"name": "jzsj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 建筑时间 ",
+			"annotations": []
+		}, {
+			"name": "tdpz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 土地凭证 ",
+			"annotations": []
+		}, {
+			"name": "pzjswh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 批准建设文号 ",
+			"annotations": []
+		}, {
+			"name": "sfcqdj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否产权登记 ",
+			"annotations": []
+		}, {
+			"name": "cqrzjhm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 产权人证件号码 ",
+			"annotations": []
+		}, {
+			"name": "jzmj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 建筑面积 ",
+			"annotations": []
+		}, {
+			"name": "qtxsz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 请填写数字 ",
+			"annotations": []
+		}, {
+			"name": "ldglryxm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 楼栋管理人员 姓名 ",
+			"annotations": []
+		}, {
+			"name": "rq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 热区 ",
+			"annotations": []
+		}, {
+			"name": "ldjj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 楼栋简介 ",
+			"annotations": []
+		}, {
+			"name": "ldtp",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 楼栋图片 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时 间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 楼栋信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjFWXX",
+		"tableName": "JcsjFWXX",
+		"body": [{
+			"name": "ldmc",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 楼栋名称 ",
+			"annotations": []
+		}, {
+			"name": "fjbh",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 房间编号 ",
+			"annotations": []
+		}, {
+			"name": "fjxz",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 房间性质 ",
+			"annotations": []
+		}, {
+			"name": "ssdy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 所属单元 ",
+			"annotations": []
+		}, {
+			"name": "yhlx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 隐患类型 ",
+			"annotations": []
+		}, {
+			"name": "jzyt",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 建筑用途 ",
+			"annotations": []
+		}, {
+			"name": "jzmjPfm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 建筑面积（平方米） ",
+			"annotations": []
+		}, {
+			"name": "cqlx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 产权类型 ",
+			"annotations": []
+		}, {
+			"name": "czlx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 出租类型 ",
+			"annotations": []
+		}, {
+			"name": "czyt",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 出租用途 ",
+			"annotations": []
+		}, {
+			"name": "cqr",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 产权人 ",
+			"annotations": []
+		}, {
+			"name": "xm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 姓名 ",
+			"annotations": []
+		}, {
+			"name": "sfzhm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 身份证号码 ",
+			"annotations": []
+		}, {
+			"name": "lxfs",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 联系方 式 ",
+			"annotations": []
+		}, {
+			"name": "cqqy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 产权企业 ",
+			"annotations": []
+		}, {
+			"name": "dwmc",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 单位名称 ",
+			"annotations": []
+		}, {
+			"name": "dwdz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 单位地址 ",
+			"annotations": []
+		}, {
+			"name": "fzrmc",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 负责人名 称 ",
+			"annotations": []
+		}, {
+			"name": "fzrlxdh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 负责人联系电话 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 房屋信息\r\n * @author 刘 洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjQYXX",
+		"tableName": "JcsjQYXX",
+		"body": [{
+			"name": "ssxq",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 所属辖区 ",
+			"annotations": []
+		}, {
+			"name": "lx",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 类型 ",
+			"annotations": []
+		}, {
+			"name": "qyfl",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 企业分类 ",
+			"annotations": []
+		}, {
+			"name": "mc",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 名称 ",
+			"annotations": []
+		}, {
+			"name": "tyshxydm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 统一社会信用代码 ",
+			"annotations": []
+		}, {
+			"name": "qylxfs",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 企业联系方式 ",
+			"annotations": []
+		}, {
+			"name": "zafzr",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 治安负责人 ",
+			"annotations": []
+		}, {
+			"name": "zafzrlxfs",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 治安负责人联系方式 ",
+			"annotations": []
+		}, {
+			"name": "fddbr",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 法定代表人 ",
+			"annotations": []
+		}, {
+			"name": "frlxdh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 法人联系电话 ",
+			"annotations": []
+		}, {
+			"name": "frzjlx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 法人证件类型 ",
+			"annotations": []
+		}, {
+			"name": "frzjhm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 法人证件号码 ",
+			"annotations": []
+		}, {
+			"name": "aqyhlx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 安全隐患类型 ",
+			"annotations": []
+		}, {
+			"name": "sfwhqy",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否危化企业 ",
+			"annotations": []
+		}, {
+			"name": "qydz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 企业地址 ",
+			"annotations": []
+		}, {
+			"name": "qyygs",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 企业员工数 ",
+			"annotations": []
+		}, {
+			"name": "gzcd",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 关注程度 ",
+			"annotations": []
+		}, {
+			"name": "sfyzgdzz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否有中共党组织 ",
+			"annotations": []
+		}, {
+			"name": "sfygh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否有工会 ",
+			"annotations": []
+		}, {
+			"name": "sfygqtzz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否有共青团组织 ",
+			"annotations": []
+		}, {
+			"name": "sfyflzz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 是否有妇联组织 ",
+			"annotations": []
+		}, {
+			"name": "qytp",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 企业图片 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 企业信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjCLXX",
+		"tableName": "JcsjCLXX",
+		"body": [{
+			"name": "clsyqlx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 车辆所有权类型 ",
+			"annotations": []
+		}, {
+			"name": "czxm",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 车主姓名 ",
+			"annotations": []
+		}, {
+			"name": "cphm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 车牌号码 ",
+			"annotations": []
+		}, {
+			"name": "cllx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 车辆类型 ",
+			"annotations": []
+		}, {
+			"name": "ys",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 颜色 ",
+			"annotations": []
+		}, {
+			"name": "cwlx",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 车位类型 ",
+			"annotations": []
+		}, {
+			"name": "cj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 厂家 ",
+			"annotations": []
+		}, {
+			"name": "clsbh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 车辆识别号 ",
+			"annotations": []
+		}, {
+			"name": "clcdlb",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 车辆产地类别 ",
+			"annotations": []
+		}, {
+			"name": "fdjh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 发动机号 ",
+			"annotations": []
+		}, {
+			"name": "cw",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 车位 ",
+			"annotations": []
+		}, {
+			"name": "cwh",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 车位号 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 车辆信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjCWXX",
+		"tableName": "JcsjCWXX",
+		"body": [{
+			"name": "qzsyqlx",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 犬只所有权类型 ",
+			"annotations": []
+		}, {
+			"name": "qzxm",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 犬主姓名 ",
+			"annotations": []
+		}, {
+			"name": "qzgzdw",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 犬主工作单位 ",
+			"annotations": []
+		}, {
+			"name": "sdpcs",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 属地派出所 ",
+			"annotations": []
+		}, {
+			"name": "qlsfyzj",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 犬 类是否有证件 ",
+			"annotations": []
+		}, {
+			"name": "yqdjhm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 养犬登记号码 ",
+			"annotations": []
+		}, {
+			"name": "qm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 犬名 ",
+			"annotations": []
+		}, {
+			"name": "qpz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 犬品种 ",
+			"annotations": []
+		}, {
+			"name": "qxb",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 犬性别 ",
+			"annotations": []
+		}, {
+			"name": "qxz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 请选择 ",
+			"annotations": []
+		}, {
+			"name": "tz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 体长 ",
+			"annotations": []
+		}, {
+			"name": "ql",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 犬龄 ",
+			"annotations": []
+		}, {
+			"name": "ms",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 毛色 ",
+			"annotations": []
+		}, {
+			"name": "tz1",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 特征 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 宠物信息\r\n * @author 刘洋\r\n "
+	}, {
+		"annotations": [],
+		"name": "JcsjCSBJXX",
+		"tableName": "JcsjCSBJXX",
+		"body": [{
+			"name": "ssxq",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 所属辖区 ",
+			"annotations": []
+		}, {
+			"name": "qax",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 乾安县 ",
+			"annotations": []
+		}, {
+			"name": "mc",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 名称 ",
+			"annotations": []
+		}, {
+			"name": "bjlx",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 部件类型 ",
+			"annotations": []
+		}, {
+			"name": "wljg",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 网络井盖 ",
+			"annotations": []
+		}, {
+			"name": "zt",
+			"type": "String",
+			"validations": [{
+				"key": "required",
+				"value": ""
+			}],
+			"javadoc": " 状态 ",
+			"annotations": []
+		}, {
+			"name": "cz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 材质 ",
+			"annotations": []
+		}, {
+			"name": "ly",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 来源 ",
+			"annotations": []
+		}, {
+			"name": "bm",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 部门 ",
+			"annotations": []
+		}, {
+			"name": "bm1",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 编码 ",
+			"annotations": []
+		}, {
+			"name": "zxd",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 中心点 ",
+			"annotations": []
+		}, {
+			"name": "bz",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 备注 ",
+			"annotations": []
+		}, {
+			"name": "sctp",
+			"type": "String",
+			"validations": [],
+			"javadoc": " 上传图片 ",
+			"annotations": []
+		}, {
+			"name": "createTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 创建时间 ",
+			"annotations": []
+		}, {
+			"name": "modifiedTime",
+			"type": "Instant",
+			"validations": [],
+			"javadoc": " 修改时间 ",
+			"annotations": []
+		}],
+		"javadoc": "\r\n * 城市部件信息\r\n * @author 刘洋\r\n "
+	}],
+	"relationships": [{
+		"from": {
+			"name": "JcsjHJCY",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"to": {
+			"name": "JcsjJBXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"options": [],
+		"cardinality": "ManyToOne"
+	}, {
+		"from": {
+			"name": "JcsjFJXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"to": {
+			"name": "JcsjJBXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"options": [],
+		"cardinality": "ManyToOne"
+	}, {
+		"from": {
+			"name": "JcsjZFJL",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"to": {
+			"name": "JcsjJBXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"options": [],
+		"cardinality": "ManyToOne"
+	}, {
+		"from": {
+			"name": "JcsjJYXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"to": {
+			"name": "JcsjJBXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"options": [],
+		"cardinality": "ManyToOne"
+	}, {
+		"from": {
+			"name": "JcsjZFXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"to": {
+			"name": "JcsjJBXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"options": [],
+		"cardinality": "ManyToOne"
+	}, {
+		"from": {
+			"name": "JcsjLDXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"to": {
+			"name": "JcsjFWXX",
+			"injectedField": null,
+			"javadoc": null
+		},
+		"options": [],
+		"cardinality": "ManyToOne"
+	}],
+	"enums": [],
+	"options": {
+		"filter": {
+			"list": ["*"],
+			"excluded": []
+		},
+		"dto": {
+			"mapstruct": {
+				"list": ["*"],
+				"excluded": []
+			}
+		},
+		"pagination": {
+			"pagination": {
+				"list": ["*"],
+				"excluded": []
+			}
+		},
+		"service": {
+			"serviceClass": {
+				"list": ["*"],
+				"excluded": []
+			}
+		}
+	}
+}
