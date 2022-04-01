@@ -90,7 +90,7 @@
 
                       <% if(col.type==='Instant'||col.type==='Date'){%>
                     
-                         <Calendar id="<%=col.name%>" v-model="<%=entityNameSmall%>.<%=col.name%>" class="p-inputtext-sm" :showTime="true" :showSeconds="true" dataFormat="yy-mm-dd"/>
+                         <Calendar id="<%=col.name%>" v-model="<%=entityNameSmall%>.<%=col.name%>" class="p-inputtext-sm" :showTime="true" :showSeconds="true" dateFormat="yy-mm-dd"/>
                       <%}else if(col.javadoc.trim().endsWith('_字典项')){%>
                          <Dropdown  id="<%=col.name %>" :options="<%=col.name%>s" optionLabel="name" optionValue="value"  v-model="<%=entityNameSmall%>.<%=col.name%>" class="p-dropdown-sm"   />
                      <%}else{%>
