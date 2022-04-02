@@ -115,98 +115,113 @@
             <div class="card">
                 <h5 class="text-center" style="margin-bottom:1rem;"><%=entity.javadoc %></h5>
                  <form @submit.prevent="handleSubmit(!v$.$invalid)" class="flex flex-row flex-wrap">
-                     <% for (col of cols){ %>
-                         <div class="field">
-                            <div class="p-float-label">
+                    
+                         <div class="formgrid grid">
+                          <% for (col of cols){ %>
+                            <div class="field col-6">
+
+
+                              <%if(col.validations.length>0){ %>
+                                    <label for="<%=col.name %>" :class="{'p-error':v$.<%=col.name %>.$invalid && submitted}"><% if(col.validations.some(ele=>ele.key='required')){%>*<%}%><%=col.javadoc %>
+                                        
+                                    </label>
+
+                                <%} else{ %>
+                                    <label for="<%=col.name %>"><%=col.javadoc.replaceAll('_字典项','') %></label>
+                              <%}%>
 
                              <% if(col.javadoc.trim().endsWith('_字典项')) { %>
 
                                     <%if(col.validations.length>0){ %>
-                                      <Dropdown  id="<%=col.name %>" :options="<%=col.name%>s" optionLabel="name" optionValue="value" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}"  />
+                                      <Dropdown  id="<%=col.name %>" :options="<%=col.name%>s" optionLabel="name" optionValue="value" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" class=" w-full" />
                                     <%} else{ %>
 
                                          <Dropdown  id="<%=col.name %>" :options="<%=col.name%>s" optionLabel="name" optionValue="value"
-                                           v-model="state.<%=col.name %>" :showTime="true" :showSeconds="true" dateFormat="yy-mm-dd"/>
+                                           v-model="state.<%=col.name %>" :showTime="true" :showSeconds="true" dateFormat="yy-mm-dd" class=" w-full"/>
                                     <%}%>
 
                              <%} else if(col.type==='Instant'||col.type==='Date') { %>
 
                                     <%if(col.validations.length>0){ %>
-                                      <Calendar id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" :showTime="true" :showSeconds="true" />
+                                      <Calendar id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" :showTime="true" :showSeconds="true" class=" w-full"/>
                                     <%} else{ %>
 
-                                         <Calendar id="<%=col.name %>" v-model="state.<%=col.name %>" :showTime="true" :showSeconds="true" dateFormat="yy-mm-dd"/>
+                                         <Calendar id="<%=col.name %>" v-model="state.<%=col.name %>" :showTime="true" :showSeconds="true" dateFormat="yy-mm-dd" class=" w-full"/>
                                     <%}%>
                                
                              <%} else if(col.type === 'TextBlob') {%>
                                     <%if(col.validations.length>0){ %>
-                                       <TextArea id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus/>
+                                       <TextArea id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus class=" w-full"/>
                                     <%} else{ %>
-                                       <TextArea id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus/>
+                                       <TextArea id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
                                     <%}%>
                              <%} else if(col.type === 'Integer') {%>
                                     <%if(col.validations.length>0){ %>
-                                       <InputNumber  id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus/>
+                                       <InputNumber  id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus class=" w-full"/>
                                     <%} else{ %>
-                                       <InputNumber  id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus/>
+                                       <InputNumber  id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
                                     <%}%>
                              <%} else if(col.type === 'Long') {%>
                                     <%if(col.validations.length>0){ %>
-                                       <InputNumber  id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus/>
+                                       <InputNumber  id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus class=" w-full"/>
                                     <%} else{ %>
-                                       <InputNumber  id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus/>
+                                       <InputNumber  id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
                                     <%}%>
                              <%} else if(col.type === 'BigDecimal') {%>
                                     <%if(col.validations.length>0){ %>
-                                       <InputNumber  id="<%=col.name %>" :minFractionDigits="2" :maxFractionDigits="5" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus/>
+                                       <InputNumber  id="<%=col.name %>" :minFractionDigits="2" :maxFractionDigits="5" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus class=" w-full"/>
                                     <%} else{ %>
-                                       <InputNumber  :minFractionDigits="2" :maxFractionDigits="5" id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus/>
+                                       <InputNumber  :minFractionDigits="2" :maxFractionDigits="5" id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
                                     <%}%>
                              <%} else if(col.type === 'Float'||col.type === 'Double') {%>
                                     <%if(col.validations.length>0){ %>
-                                       <InputNumber  id="<%=col.name %>" :minFractionDigits="2" :maxFractionDigits="2" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus/>
+                                       <InputNumber  id="<%=col.name %>" :minFractionDigits="2" :maxFractionDigits="2" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus class=" w-full"/>
                                     <%} else{ %>
-                                       <InputNumber  :minFractionDigits="2" :maxFractionDigits="2" id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus/>
+                                       <InputNumber  :minFractionDigits="2" :maxFractionDigits="2" id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
                                     <%}%>
                              <%} else {%>
                                     <%if(col.validations.length>0){ %>
-                                     <InputText id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}"  autofocus/>
+                                     <InputText id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}"  autofocus class=" w-full"/>
                                     <%} else{ %>
-                                         <InputText id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus/>
+                                         <InputText id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
                                     <%}%>
                              <%}%>
 
                                 <%if(col.validations.length>0){ %>
-                                    <label for="<%=col.name %>" :class="{'p-error':v$.<%=col.name %>.$invalid && submitted}"><%=col.javadoc %><% if(col.validations.some(ele=>ele.key='required')){%>*<%}%>
-                                        
-                                    </label>
-
+                                   
                                     <small v-if="(v$.<%=col.name %>.$invalid && submitted) || v$.<%=col.name %>.$pending.$response" class="p-error">{{v$.<%=col.name %>.required.$message.replace('Value', '<%=col.javadoc %>')}}</small>
-                                <%} else{ %>
-                                    <label for="<%=col.name %>"><%=col.javadoc.replaceAll('_字典项','') %></label>
-                                <%}%>
+                                <%} %>
+                                   
                                 
                             </div>
-                           
-                        </div>
-                    <%}%>
 
-
-                    <% for(let manyToOne of manyToOnes){
-                       const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
-                       const toEntity = app.entities.find((e)=>{
-                          return  e.name ===manyToOne.to.name;
-                       })
-                        
-                    %>
-                        <div class="field"  style="margin:0.5rem;">
-                            <div class="p-float-label">
-                                <InputText id="<%=toName%>" v-model="state.<%=toName%>.id"  @click="showSelect<%=toEntity.name%>"/>
-                                <label for="<%=toName%>" >*<%=toEntity.javadoc%></label>
-                            </div>
                             
+
+
+
+                          <%}%>
+
+                          <% for(let manyToOne of manyToOnes){
+                               const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
+                               const toEntity = app.entities.find((e)=>{
+                                  return  e.name ===manyToOne.to.name;
+                               })
+                                
+                            %>
+                                
+                                    <div class="field col-6">
+                                        <label for="<%=toName%>" >*<%=toEntity.javadoc%></label>
+                                        <InputText id="<%=toName%>" v-model="state.<%=toName%>.id"  @click="showSelect<%=toEntity.name%>" class="w-full"/>
+                                        
+                                    </div>
+                                    
+                                
+                            <%}%>
                         </div>
-                    <%}%>
+                   
+
+
+                    
 
 
                     <!--此处需要多对多支持 -->
