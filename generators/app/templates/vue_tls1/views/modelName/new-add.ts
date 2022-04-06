@@ -18,11 +18,12 @@
         });
 %>
 import { ref, onMounted,reactive  } from 'vue';
-import { email, required } from "@vuelidate/validators";
+import { email, required ,minLength,maxLength,minValue,maxValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import { helpers  } from '@vuelidate/validators'
 export default function(<%=entityNameSmall%>Service:any){
 
-
+   
 
     const isAdd = ref(false);
     const showMessage = ref(false);
@@ -53,16 +54,61 @@ export default function(<%=entityNameSmall%>Service:any){
     <%}%>
     });
 
+     <% for (let col of cols){ 
+            const patterns =  col.validations.filter((item)=>item.key==='pattern').map(ele=>{
+                return   "const "+col.name+'Pattern'+"= helpers.regex(/"+(ele.value?ele.value:'')+"/)";
+             }).join(";");
+
+
+
+     %>
+         
+          <%=patterns%>                            
+
+     <%}%>
+
+     const patternMsg = '输入格式不正确';
+
+    
+
     const rules:any = {
-            <% for (col of cols){ 
-            %>
-                <%if(col.validations.length>0) {
-                    const ruleStr =  col.validations.map((v)=>{
-                            return  v.key+':'+v.key+(v.value?('('+v.value+')'):'')
+            <% for (let col of cols){
+                if(col.validations && col.validations.length>0) {
+                    let ruleStr1 =  col.validations.map((v)=>{
+
+                                    
+                                    if(v.key==='minlength'){
+                                       return 'minLength:minLength'+(v.value?('('+v.value+')'):'')
+                                    }else
+                                    if(v.key==='maxlength'){
+                                       return 'maxLength:maxLength'+(v.value?('('+v.value+')'):'')
+                                    }else
+                                    if(v.key.trim()==="min"){ 
+                                         return 'minValue:minValue'+(v.value?('('+v.value+')'):'')
+                                    }else
+
+                                    if(v.key==='max'){
+                                         return 'maxValue:maxValue'+(v.value?('('+v.value+')'):'')
+                                    }else
+
+                                    
+
+                                    if(v.key==='pattern'){
+                                      return  col.name+'Pattern'+':'+"helpers.withMessage(patternMsg,"+col.name+"Pattern)"
+
+                                    }else
+
+                                    if (v.key==='required') {
+                                        return v.key+':'+v.key
+                                    }else
+                                      {
+                                         return  ''
+                                      } 
                      }).join('    ,')
 
                 %>
-                  <%=col.name %>: { <%=ruleStr%> },
+
+                  <%=col.name %>: { <%=ruleStr1%> },
                 <%}%>
             <%
               }

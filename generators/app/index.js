@@ -11,13 +11,13 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'jdlName',
         message: '请输入您的jdl文件名',
-        default: 'E:/work/tongyimenhu/code/wisdomcity/jdls/基础数据.jdl'
+        default: 'E:/work/tongyimenhu/code/wisdomcity/jdls/jdlTest2.jdl'
     },
 	{
         type: 'input',
         name: 'entityName',
         message: '请输入您的要生成的entity名称(默认值*所有）',
-        default: 'JcsjHJCY'
+        default: 'JdlTestSimple'
     },
     {
         type: 'input',

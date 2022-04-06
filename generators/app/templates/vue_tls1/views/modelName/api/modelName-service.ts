@@ -201,7 +201,7 @@ export default class <%=entityName%>Service {
 
 	deleteObjPropIdNull(obj:any){
 		for(let key of Object.keys(obj)){
-			if(typeof obj[key] === 'object' && !obj[key].id){
+			if(obj[key] && typeof obj[key] === 'object' && !obj[key].id){
 				delete obj[key];
 			}
 		}

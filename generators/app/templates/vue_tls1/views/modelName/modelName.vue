@@ -122,7 +122,7 @@
 
 
                               <%if(col.validations.length>0){ %>
-                                    <label for="<%=col.name %>" :class="{'p-error':v$.<%=col.name %>.$invalid && submitted}"><% if(col.validations.some(ele=>ele.key='required')){%>*<%}%><%=col.javadoc %>
+                                    <label for="<%=col.name %>" :class="{'p-error':v$.<%=col.name %>.$invalid && submitted}"><% if(col.validations.some(ele=>ele.key==='required')){%>*<%}%><%=col.javadoc %>
                                         
                                     </label>
 
@@ -140,7 +140,7 @@
                                            v-model="state.<%=col.name %>" :showTime="true" :showSeconds="true" dateFormat="yy-mm-dd" class=" w-full"/>
                                     <%}%>
 
-                             <%} else if(col.type==='Instant'||col.type==='Date') { %>
+                             <%} else if(col.type==='Instant'||col.type==='LocalDate'||col.type==='ZonedDateTime') { %>
 
                                     <%if(col.validations.length>0){ %>
                                       <Calendar id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" :showTime="true" :showSeconds="true" class=" w-full"/>
@@ -153,7 +153,13 @@
                                     <%if(col.validations.length>0){ %>
                                        <TextArea id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus class=" w-full"/>
                                     <%} else{ %>
-                                       <TextArea id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
+                                       <Textarea id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
+                                    <%}%>
+                              <%} else if(col.type === 'Boolean') {%>
+                                    <%if(col.validations.length>0){ %>
+                                       <Checkbox  id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" :binary="true" />
+                                    <%} else{ %>
+                                       <Checkbox  id="<%=col.name %>" v-model="state.<%=col.name %>" :binary="true" class=" w-full"/>
                                     <%}%>
                              <%} else if(col.type === 'Integer') {%>
                                     <%if(col.validations.length>0){ %>
@@ -161,7 +167,7 @@
                                     <%} else{ %>
                                        <InputNumber  id="<%=col.name %>" v-model="state.<%=col.name %>" autofocus class=" w-full"/>
                                     <%}%>
-                             <%} else if(col.type === 'Long') {%>
+                             <%} else if(col.type === 'Long'||col.type==='Duration') {%>
                                     <%if(col.validations.length>0){ %>
                                        <InputNumber  id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" autofocus class=" w-full"/>
                                     <%} else{ %>
@@ -188,8 +194,10 @@
                              <%}%>
 
                                 <%if(col.validations.length>0){ %>
+
+
                                    
-                                    <small v-if="(v$.<%=col.name %>.$invalid && submitted) || v$.<%=col.name %>.$pending.$response" class="p-error">{{v$.<%=col.name %>.required.$message.replace('Value', '<%=col.javadoc %>')}}</small>
+                                    <small v-if="(v$.<%=col.name %>.$invalid && submitted) || v$.<%=col.name %>.$pending.$response" class="p-error"><span v-for="error of v$.<%=col.name %>.$errors" :key="error.$uid">{{error.$message.replace('Value', '<%=col.name %>')}},</span></small>
                                 <%} %>
                                    
                                 
