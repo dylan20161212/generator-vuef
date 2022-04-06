@@ -199,7 +199,7 @@
         })
 
             const { dateFormat } = DateFormat();
-            const displayCPXX = ref(true);
+            const displayCPXX = ref(false);
             const selectAll = ref(false);
             const { selectionModel } = toRefs(props)
             const <%=entityNameSmall%> = ref({
