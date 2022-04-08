@@ -81,10 +81,24 @@ export default class <%=entityName%>Service {
        
 
 		//过滤
+		const dateOptMap:any={
+			'dateIs':'equals',
+			'dateIsNot':'notEquals',
+			'dateBefore':'lessThanOrEqual',
+			'dateAfter':'greaterThanOrEqual',
+			'lt':'lessThan',
+			'lte':'lessThanOrEqual',
+			'gt':'greaterThan',
+			'gte':'greaterThanOrEqual'
+		}
         const filters = paramJson["filters"];
         const filterParam = Object.keys(filters).filter(key=>filters[key].value).map(key=>{
-        	if(filters[key].value.length>1){
+        	if(filters[key].value instanceof Array && filters[key].value.length>1){
 				return key+".in"+"="+ filters[key].value;
+			}
+			const mtMd = filters[key].matchMode;
+			if(dateOptMap[mtMd]){
+				return key+"."+dateOptMap[mtMd]+"="+ filters[key].value;
 			}
             return key+"."+filters[key].matchMode+"="+ filters[key].value;
         }).join('&')
@@ -172,7 +186,7 @@ export default class <%=entityName%>Service {
 			
 			get<%=toColName%>s(){
 
-				return this.getWisdomDataDics('<%=(entity.name+"_"+col.name)%>');
+				return this.getWisdomDataDics('<%=col.name%>');
 
 				
 			}

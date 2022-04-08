@@ -212,7 +212,7 @@
            <% for(let col of cols){%>
            <%   if(col.javadoc.trim().endsWith('_字典项')){%>
                      
-                    getWisdomDataDics('<%=entityName%>_<%=col.name%>').then((res)=>{
+                    getWisdomDataDics('<%=col.name%>').then((res)=>{
                         <%=col.name%>s.value = res.data;
                     });
            <%   }%>

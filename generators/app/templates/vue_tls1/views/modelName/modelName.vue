@@ -89,15 +89,21 @@
                 <Column selectionMode="multiple" headerStyle="width: 3em"></Column>
                  <% for (col of cols){ 
                      const upColName = col.name.charAt(0).toUpperCase()+col.name.substring(1);
+                     let dataTypeStr= ''
+                     if(col.type==='Instant'||col.type==='LocalDate'||col.type==='ZonedDateTime'){
+                         dataTypeStr= 'dataType="date"';
+                     }else if(col.type==='Integer'||col.type==='Long'||col.type==='Float'||col.type==='Double'||col.type==='BigDecimal'){
+                         dataTypeStr= 'dataType="numeric"';
+                     }
 
                  %>
-                    <Column field="<%=col.name %>" header="<%=col.javadoc.trim().replaceAll('_字典项','') %>" style="min-width:12rem" :sortable="true">
+                    <Column field="<%=col.name %>" header="<%=col.javadoc.trim().replaceAll('_字典项','') %>" <%-dataTypeStr%> style="min-width:12rem" :sortable="true">
                         <template #body="{data}">
 
                             <% if(col.javadoc.trim().endsWith('_字典项')) { %>
                                  {{getNameOf<%=upColName%>s(data.<%=col.name %>)}}
 
-                            <%}else if(col.type==='Instant'||col.type==='Date') { %>
+                            <%}else if(col.type==='Instant'||col.type==='LocalDate'||col.type==='ZonedDateTime') { %>
                                  {{dateFormat(data.<%=col.name %>)}}
                             <%}else{%>
                                 {{data.<%=col.name %>}}
@@ -107,16 +113,21 @@
 
 
                           <% if(col.javadoc.trim().endsWith('_字典项')) { %>
-                            <MultiSelect v-model="filterModel.value" @change="filterCallback()" :options="<%=col.name%>s" optionLabel="name" optionValue="value" placeholder="任何" class="p-column-filter">
+                            <MultiSelect v-model="filterModel.value" @change="filterCallback()" :options="<%=col.name%>s" optionLabel="name" optionValue="value" placeholder="任何" class="p-column-filter" style="min-width: 10rem;">
                                 <template #option="slotProps">
                                     <div class="p-multiselect-representative-option">
                                         <span class="image-text">{{slotProps.option.name}}</span>
                                     </div>
                                 </template>
                             </MultiSelect>
+                          <%}else if(col.type==='Instant'||col.type==='LocalDate'||col.type==='ZonedDateTime'){%>
+
+                            <Calendar  v-model="filterModel.value" :showTime="false" :showSeconds="false" dateFormat="yy-mm-dd" style="min-width: 10rem;"/>
+
+
                           <%}else { %>
 
-                            <InputText type="text" v-model="filterModel.value" @keydown.enter="filterCallback()" class="p-column-filter" :placeholder="`查询通过<%=col.javadoc %>`" v-tooltip.top.focus="'回车键过滤'"/>
+                            <InputText type="text" v-model="filterModel.value" @keydown.enter="filterCallback()" class="p-column-filter" :placeholder="`查询通过<%=col.javadoc %>`" v-tooltip.top.focus="'回车键过滤'" style="min-width: 10rem;"/>
                           <%}%>
 
 
@@ -124,7 +135,7 @@
 
                         </template>
                         <template #editor="{ data, field }">
-                             <% if(col.type==='Instant'||col.type==='Date') { %>
+                             <% if(col.type==='Instant'||col.type==='LocalDate'||col.type==='ZonedDateTime') { %>
                                  <Calendar  id="dateformat" v-model="data[field]"   :showTime="true" :showSeconds="true"  />
                              <%} else if(col.type === 'TextBlob') {%>
                                 <TextArea v-model="data[field]" autofocus />
