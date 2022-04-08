@@ -22,7 +22,10 @@
 
 	const cols = entity.body;
 
-	const colNamesStr = cols.map(item=>item.name).join(',');
+	const colNamesStr = cols.map((item)=>{
+      return "'"+item.name+"'";
+    }).join(',');
+
 
 	const manyToOnes = app.relationships.filter((item)=>{
 		return item.from.name === entityName && (item.cardinality==='ManyToOne'||item.cardinality==='OneToOne');
@@ -45,11 +48,21 @@
             
 
             <DataTable :value="selected<%=entityName%>s" class="p-datatable-sm"  ref="dt"
-                dataKey="id"   responsiveLayout="scroll"
+                dataKey="id"   responsiveLayout="scroll" v-model:filters="filters"
+                 :globalFilterFields="[<%-colNamesStr%>]"
                                
                 >
                 <template #header>
-                   已添加的<%=entity.javadoc%>
+                   <div class="flex justify-content-between">
+                        <div> 已添加的<%=entity.javadoc%></div>
+                        <div>
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search" />
+                                <InputText  placeholder="Keyword Search" v-model="filters['global'].value" class="p-inputtext-sm"/>
+                            </span>
+                            
+                        </div>
+                    </div>
                 </template>
                
                 <template #empty>
@@ -75,6 +88,14 @@
                     </template>  
                 </Column>
                 <%}%>
+
+                <Column  style="min-width:12rem" :sortable="false">
+                    <template #body="{data}">
+                        
+                                <Button label="删除" class="p-button-danger p-button-text" @click="deleteSelected(data.id)" />
+                        
+                    </template>  
+                </Column>
                 
             </DataTable>
            
@@ -145,6 +166,8 @@
                         
                     </Column>
                 <%}%>
+
+                
                 
               
                 
@@ -166,6 +189,7 @@
 
     import { defineComponent, ref, onMounted, toRefs, watch } from 'vue'
     import DateFormat from '@/utils/dateTools';
+    import {FilterMatchMode,FilterOperator} from 'primevue/api';
 
     export default defineComponent({
         name: '<%=entityName%>s',
@@ -363,7 +387,10 @@
                //alert(JSON.stringify(doSelecteds.value));
                if(selectModel.value === "single"){//单选
                     selected<%=entityName%>s.value = [];
-                    selected<%=entityName%>s.value.push(doSelecteds.value);
+                    if(doSelecteds.value){
+                        selected<%=entityName%>s.value.push(doSelecteds.value);
+                    }
+                    
                }else{
                   for(let e of doSelecteds.value){
                         if(!selected<%=entityName%>s.value.some( (m:any)=> {return m.id===e.id})){
@@ -376,6 +403,11 @@
             }
 
             const showMe = (selectedValues:any[])=>{
+
+                if(!selectedValues){
+                     displayCPXX.value = true;
+                     return;
+                }
                 
                 let ids = selectedValues.map((ele)=>ele.id);
 
@@ -428,8 +460,27 @@
             <%}%>  
 
 
+
+
+            const filters = ref({
+                'global': {value: null, matchMode: FilterMatchMode.CONTAINS}
+            });
+        
+            const deleteSelected=(id:any)=>{ //new add
+                
+                const selected:[any] = selected<%=entityName%>s.value;
+                for(let i=0;i<selected.length;i++){
+                    if(id === selected[i].id){
+                            selected.splice(i,1);
+                    }
+                    
+                }
+
+            }
+
+
             return {
-                dateFormat,displayCPXX,showMe,selected<%=entityName%>s,<%=entityNameSmall%>s,onPage,totalRecords,onSort,selectAll,doSelecteds,onSelectAllChange,onRowSelect,onRowUnselect,<%=entityNameSmall%>,doSearch,doReset,doAdd,selectModel,
+                filters,deleteSelected,dateFormat,displayCPXX,showMe,selected<%=entityName%>s,<%=entityNameSmall%>s,onPage,totalRecords,onSort,selectAll,doSelecteds,onSelectAllChange,onRowSelect,onRowUnselect,<%=entityNameSmall%>,doSearch,doReset,doAdd,selectModel,
 
                <% for(let col of cols){
                      const toColName =  col.name.charAt(0).toUpperCase().toUpperCase()+col.name.substring(1);

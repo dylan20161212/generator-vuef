@@ -16,8 +16,50 @@
         const manyToManys= app.relationships.filter((item)=>{
             return item.from.name === entityName && (item.cardinality==='ManyToMany'||item.cardinality==='OneToMany');
         });
+
+
+        // 获取关系计算属性
+        
+        const computeFields = [];
+        for(let manyToOne of manyToOnes){
+         const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
+         const toEntity = app.entities.find((e)=>{
+            return  e.name ===manyToOne.name;
+         });
+         let displayField = "id";
+         if(manyToOne.from.javadoc){
+               displayField=  manyToOne.from.javadoc.trim();
+         }
+
+         computeFields.push(toName+displayField)
+
+        }
+
+
+
+        for(let manyToMany of manyToManys){
+             const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
+             const toEntity = app.entities.find((e)=>{
+                return  e.name ===manyToMany.name;
+             });
+             let displayField = "id";
+             if(manyToMany.from.javadoc){
+                   displayField=  manyToMany.from.javadoc.trim();
+             }
+             const displayFieldFirstLow = displayField.charAt(0).toLowerCase()+displayField.substring(1)
+             
+             computeFields.push(toName+displayFieldFirstLow+'s');
+        }
+
+        const computeFieldsStr=computeFields.filter((item)=>item).join(',');
+
+
+
+
+
+
 %>
-import { ref, onMounted,reactive  } from 'vue';
+import { ref, onMounted,reactive ,computed } from 'vue';
 import { email, required ,minLength,maxLength,minValue,maxValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { helpers  } from '@vuelidate/validators'
@@ -27,7 +69,7 @@ export default function(<%=entityNameSmall%>Service:any){
 
     const isAdd = ref(false);
     const showMessage = ref(false);
-    const state = reactive({
+    const state:any = reactive({
         id:'',
 
     <%for(let col of cols) { %>
@@ -40,9 +82,7 @@ export default function(<%=entityNameSmall%>Service:any){
         const toEntity = app.entities.find((e)=>{
             return  e.name ===manyToOne.name;
         }); %>
-        <%=toName%>:{
-            id:''
-        },
+        <%=toName%>:null,
     <%}%>
 
     <% for(let manyToMany of manyToManys){
@@ -50,7 +90,7 @@ export default function(<%=entityNameSmall%>Service:any){
         const toEntity = app.entities.find((e)=>{
             return  e.name ===manyToMany.name;
         }); %>
-        <%=toName%>s:[],
+        <%=toName%>s:null,
     <%}%>
     });
 
@@ -66,6 +106,53 @@ export default function(<%=entityNameSmall%>Service:any){
           <%=patterns%>                            
 
      <%}%>
+
+    <% for(let manyToOne of manyToOnes){
+         const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
+         const toEntity = app.entities.find((e)=>{
+            return  e.name ===manyToOne.name;
+         });
+         let displayField = "id";
+         if(manyToOne.from.javadoc){
+               displayField=  manyToOne.from.javadoc.trim();
+         }
+
+    %>
+         const <%=toName%><%=displayField%> = computed(()=>{
+            if(state.<%=toName%> && state.<%=toName%>.<%=displayField%>){
+                return state.<%=toName%>.<%=displayField%>;
+            }else{
+                return '';
+            }
+          });
+
+    <%}%>
+
+
+     <% for(let manyToMany of manyToManys){
+         const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
+         const toEntity = app.entities.find((e)=>{
+            return  e.name ===manyToMany.name;
+         });
+         let displayField = "id";
+         if(manyToMany.from.javadoc){
+               displayField=  manyToMany.from.javadoc.trim();
+         }
+         const displayFieldFirstLow = displayField.charAt(0).toLowerCase()+displayField.substring(1)
+
+    %>
+         const <%=toName%><%=displayFieldFirstLow%>s = computed(()=>{
+            if(state.<%=toName%>s && state.<%=toName%>s.length>0){
+                if(state.<%=toName%>s.some((item:any)=>!item.id)){
+                    return '';
+                }     
+                return state.<%=toName%>s.map((item:any)=>item.<%=displayField%>).join(',');
+            }else{
+                return '';
+            }
+          });
+
+    <%}%>
 
      const patternMsg = '输入格式不正确';
 
@@ -144,9 +231,7 @@ export default function(<%=entityNameSmall%>Service:any){
                 return  e.name ===manyToOne.to.name;
             }); %>
         state.<%=toName%> = data.<%=toName%>;
-        if(!state.<%=toName%>){
-            state.<%=toName%> = {id : ''};
-        }
+        
         <%}%>
 
         <% for(let manyToMany of manyToManys){
@@ -214,7 +299,7 @@ export default function(<%=entityNameSmall%>Service:any){
             const toEntity = app.entities.find((e)=>{
                 return  e.name ===manyToOne.name;
             }); %>
-        state.<%=toName%>.id = '';
+        state.<%=toName%> = null;
         <%}%>
 
         <% for(let manyToMany of manyToManys){
@@ -222,7 +307,7 @@ export default function(<%=entityNameSmall%>Service:any){
             const toEntity = app.entities.find((e)=>{
                 return  e.name ===manyToMany.name;
             }); %>
-        state.<%=toName%>s = [];
+        state.<%=toName%>s = null;
         <%}%>
         submitted.value = false;
     }
@@ -231,7 +316,11 @@ export default function(<%=entityNameSmall%>Service:any){
 
     return {
        showMessage,state,rules,v$,submitted,displayMaximizable,isAdd,
-       openMaximizable,openEditMaximizable,closeMaximizable,handleSubmit,toggleDialog,resetForm
+       openMaximizable,openEditMaximizable,closeMaximizable,handleSubmit,toggleDialog,resetForm,<%=computeFieldsStr%>,
+
+
+     
+
     }
 
 

@@ -19,6 +19,43 @@
                const manyToManys= app.relationships.filter((item)=>{
                    return item.from.name === entityName && (item.cardinality==='ManyToMany'||item.cardinality==='OneToMany');
                });
+
+
+                // 获取关系计算属性
+        
+                const computeFields = [];
+                for(let manyToOne of manyToOnes){
+                    const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
+                    const toEntity = app.entities.find((e)=>{
+                        return  e.name ===manyToOne.name;
+                    });
+                    let displayField = "id";
+                    if(manyToOne.from.javadoc){
+                        displayField=  manyToOne.from.javadoc.trim();
+                    }
+
+                    computeFields.push(toName+displayField)
+
+                }
+
+
+
+                for(let manyToMany of manyToManys){
+                    const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
+                    const toEntity = app.entities.find((e)=>{
+                        return  e.name ===manyToMany.name;
+                    });
+                    let displayField = "id";
+                    if(manyToMany.from.javadoc){
+                        displayField=  manyToMany.from.javadoc.trim();
+                    }
+                    const displayFieldFirstLow = displayField.charAt(0).toLowerCase()+displayField.substring(1)
+                    
+                    computeFields.push(toName+displayFieldFirstLow+'s');
+                }
+
+                const computeFieldsStr=computeFields.filter((item)=>item).join(',');
+
             %>
 
 
@@ -122,7 +159,7 @@
 
 
                               <%if(col.validations.length>0){ %>
-                                    <label for="<%=col.name %>" :class="{'p-error':v$.<%=col.name %>.$invalid && submitted}"><% if(col.validations.some(ele=>ele.key==='required')){%>*<%}%><%=col.javadoc %>
+                                    <label for="<%=col.name %>" :class="{'p-error':v$.<%=col.name %>.$invalid && submitted}"><% if(col.validations.some(ele=>ele.key==='required')){%>*<%}%><%=col.javadoc.replaceAll('_字典项','') %>
                                         
                                     </label>
 
@@ -214,17 +251,51 @@
                                const toEntity = app.entities.find((e)=>{
                                   return  e.name ===manyToOne.to.name;
                                })
+
+                               let displayField = "id";
+                               if(manyToOne.from.javadoc){
+                                    displayField=  manyToOne.from.javadoc.trim();
+                               }
+
+                               const displayCol = toName+displayField;
                                 
                             %>
                                 
                                     <div class="field col-6">
-                                        <label for="<%=toName%>" >*<%=toEntity.javadoc%></label>
-                                        <InputText id="<%=toName%>" v-model="state.<%=toName%>.id"  @click="showSelect<%=toEntity.name%>" class="w-full"/>
+                                        <label for="<%=toName%>" ><%=toEntity.javadoc%></label>
+                                        <InputText id="<%=toName%>" v-model="<%=displayCol%>"  @click="showSelect<%=toEntity.name%>" class="w-full"/>
                                         
                                     </div>
                                     
                                 
                             <%}%>
+
+
+                            <%for(let manyToMany of manyToManys){
+                                const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
+                                const toEntity = app.entities.find((e)=>{
+                                    return  e.name ===manyToMany.to.name;
+                                });
+                                let displayField = "id";
+                                if(manyToMany.from.javadoc){
+                                    displayField=  manyToMany.from.javadoc.trim();
+                                }
+                                const displayFieldFirstLow = displayField.charAt(0).toLowerCase()+displayField.substring(1);
+                                
+                                const displayCol = toName+displayFieldFirstLow+'s';
+                             %>
+                                    <div class="field col-6">
+                                            <label for="<%=toName%>" ><%=toEntity.javadoc.trim()%></label>
+                                            <InputText id="<%=toName%>" v-model="<%=displayCol%>"  @click="showSelect<%=toEntity.name%>" class="w-full"/>
+                                            
+                                    </div>
+
+
+
+                            <%}%>
+
+
+
                         </div>
                    
 
@@ -354,8 +425,8 @@ export default {
       
     %>
 
-            <%=entityNameSmall%>Service.value.get<%=toColName%>s().then((data:any)=>{
-                <%=col.name%>s.value= data;
+            <%=entityNameSmall%>Service.value.get<%=toColName%>s().then((res:any)=>{
+                <%=col.name%>s.value= res.data;
             });
 
     <%}%>
@@ -400,7 +471,7 @@ export default {
       const toColName =  col.name.charAt(0).toUpperCase()+col.name.substring(1);
       
     %>        
-        const <%=col.name%>s = ref();
+        const <%=col.name%>s = ref([]);
      <%}%>
 
 <%}%>      
@@ -417,7 +488,8 @@ export default {
           handleSubmit,
           toggleDialog,
           resetForm,
-          isAdd
+          isAdd,
+          <%=computeFieldsStr%>
        } = newAdd(<%=entityNameSmall%>Service);
 
         //产品信息
@@ -545,11 +617,12 @@ export default {
 <% for(let manyToMany of manyToManys){ 
      const toColName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
 %>
-        const doAdd<%=manyToMany.to.name%>Type=(eles:any)=>{
+        const doAdd<%=manyToMany.to.name%>=(eles:any)=>{
 
             
                //多模式
-               state.<%=toColName%>s= eles;
+               
+               state.<%=toColName%>s= JSON.parse(JSON.stringify(eles));
            
                 
             
@@ -570,7 +643,12 @@ export default {
         const <%=toName%>Ref:any = ref(null);
         const showSelect<%=toEntity.name%> = ()=>{
             const <%=entityNameSmall%> = JSON.parse(JSON.stringify(state));
-            const <%=toName%>s = [<%=entityNameSmall%>.<%=toName%>];
+
+            let <%=toName%>s = null;
+             if(<%=entityNameSmall%>.<%=toName%>){
+                 <%=toName%>s = [<%=entityNameSmall%>.<%=toName%>];
+             }
+        
             <%=toName%>Ref.value.showMe(<%=toName%>s);
         }
 <%}%>
@@ -584,8 +662,11 @@ export default {
         const <%=toName%>Ref:any = ref(null);
         const showSelect<%=toEntity.name%> = ()=>{
             const <%=entityNameSmall%> = JSON.parse(JSON.stringify(state));
-            const <%=toName%>s = [<%=entityNameSmall%>.<%=toName%>s];
-            ptRef.value.showMe(<%=toName%>s);
+            let <%=toName%>s=null;
+            if(<%=entityNameSmall%>.<%=toName%>s){
+                 <%=toName%>s = <%=entityNameSmall%>.<%=toName%>s;
+            }
+            <%=toName%>Ref.value.showMe(<%=toName%>s);
         }
 <%}%>
 
@@ -605,7 +686,7 @@ export default {
       const toColName =  col.name.charAt(0).toUpperCase()+col.name.substring(1);
       
     %>        
-        <%=col.name%>s,getNameOf<%=toColName%>s,
+        <%=col.name-%>s,getNameOf<%=toColName-%>s,
      <%}%>
 
 <%}%>  
@@ -616,18 +697,19 @@ export default {
      const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
 
 %>
-            <%=toName%>Ref,
-            doAdd<%=manyToOne.to.name%>,showSelect<%=manyToOne.to.name%>,
+            <%=toName-%>Ref,
+            doAdd<%=manyToOne.to.name%>,showSelect<%=manyToOne.to.name-%>,
 
 <%}%>
 <% for(let manyToMany of manyToManys){
     const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
 
  %>
-            <%=toName%>Ref,
-            doAdd<%=manyToMany.to.name%>,showSelect<%=manyToMany.to.name%>,
+            <%=toName-%>Ref,
+            doAdd<%=manyToMany.to.name%>,showSelect<%=manyToMany.to.name-%>,
+           
 
-<%}%>
+<%}-%> <%=computeFieldsStr -%>,
         }
     }
 }

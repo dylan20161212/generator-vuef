@@ -111,7 +111,6 @@ export default class <%=entityName%>Service {
 
 	add<%=entityName%>(data :any){
 		const dataJson = JSON.parse(data);
-		this.deleteObjPropIdNull(dataJson);
 		return request({
 			url: <%=entityNameSmall%>sApi.<%=entityNameSmall%>sUri,
 			method: 'POST',
@@ -132,7 +131,6 @@ export default class <%=entityName%>Service {
 	edit<%=entityName%>(data :any){
 		
 		const dataJson = JSON.parse(data);
-		this.deleteObjPropIdNull(dataJson);
 		return request({
 			url: <%=entityNameSmall%>sApi.<%=entityNameSmall%>sUri+"/"+dataJson.id,
 			method: 'PUT',
@@ -174,23 +172,9 @@ export default class <%=entityName%>Service {
 			
 			get<%=toColName%>s(){
 
-				let data =  [{
-					name:'<%=col.javadoc%>1',
-					value:'001'
-				},
-				{
-					name:'<%=col.javadoc%>2',
-					value:'002'
-				},
-				{
-					name:'<%=col.javadoc%>3',
-					value:'003'
-				}
-				];
+				return this.getWisdomDataDics('<%=(entity.name+"_"+col.name)%>');
 
-				return new Promise((resolve,reject)=>{
-					resolve(data);
-				});
+				
 			}
 
 		<%}%>
@@ -198,15 +182,22 @@ export default class <%=entityName%>Service {
 	<%}%>
 
 
+	/**
+	 * 获取字典项 key 为entityName_propertyName
+	 * @param key 
+	 * @returns 
+	 */
+	getWisdomDataDics(key:any){
+		const api = "/api/wisdom-data-dics";
+		return request({
+			url: api+"?other.equals="+key,
+			method: 'GET',
+			json: true
+	
+		});
 
-	deleteObjPropIdNull(obj:any){
-		for(let key of Object.keys(obj)){
-			if(obj[key] && typeof obj[key] === 'object' && !obj[key].id){
-				delete obj[key];
-			}
-		}
- 
-	 }
+	};
+
 
 	
 }
