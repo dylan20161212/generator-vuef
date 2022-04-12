@@ -51,7 +51,18 @@
              computeFields.push(toName+displayFieldFirstLow+'s');
         }
 
-        const computeFieldsStr=computeFields.filter((item)=>item).join(',');
+        let computeFieldsStr=computeFields.filter((item)=>item).join(',');
+        if(computeFieldsStr){
+            computeFieldsStr+=',';
+        }
+
+
+        let treeFieldNames = cols.filter((col)=>{
+            return (col.javadoc.trim()==='所属辖区'||col.javadoc.trim().endsWith('字典树'))
+        }).map(c=>(c.name+'Nodes')).join(',');
+        if(treeFieldNames){
+            treeFieldNames+=',';
+        }
 
 
 
@@ -202,9 +213,19 @@ export default function(<%=entityNameSmall%>Service:any){
             %>
     };
 
+    //字典树或者所属辖区
+    <% for(let col of cols){ -%>
+        <% if(col.javadoc.trim()==='所属辖区'||col.javadoc.trim().endsWith('字典树')){%>
+
+            const <%=col.name%>Nodes = ref();//ADD
+        <%}%>
+
+    <%}%>
+
     const v$ = useVuelidate(rules, state);
 
     const submitted = ref(false);
+
   
 
 
@@ -222,7 +243,22 @@ export default function(<%=entityNameSmall%>Service:any){
      
         state.id = data.id;
         <% for(let col of cols) { %>
-        state.<%=col.name%> = data.<%=col.name%>;
+
+            <% if(col.javadoc.trim()==='所属辖区'||col.javadoc.trim().endsWith('字典树')){%>
+                if(data.<%=col.name%>){//ADD
+                    let obj:any = {};
+                    obj[ data.<%=col.name%>+'']=true;
+                    state.<%=col.name%> =obj;
+                }else{
+                    state.<%=col.name%> = data.<%=col.name%>;
+                }
+                
+            <%}else{%>
+                state.<%=col.name%> = data.<%=col.name%>;
+            <%}%>
+
+
+
         <%}%>
         
         <% for(let manyToOne of manyToOnes){
@@ -256,6 +292,16 @@ export default function(<%=entityNameSmall%>Service:any){
            
             return;
         }
+
+
+        <%for(let col of cols){ %>
+            <% if(col.javadoc.trim()==='所属辖区'||col.javadoc.trim().endsWith('字典树')){%>
+                if(state.<%=col.name%>){ //ADD
+                    state.<%=col.name%>=Object.keys(state.<%=col.name%>)[0];
+                }
+                
+            <%}%>
+        <%}%>
 
         if(isAdd.value){
             <%=entityNameSmall%>Service.value.add<%=entityName%>(JSON.stringify(state)).then((ret:any)=>{
@@ -316,7 +362,8 @@ export default function(<%=entityNameSmall%>Service:any){
 
     return {
        showMessage,state,rules,v$,submitted,displayMaximizable,isAdd,
-       openMaximizable,openEditMaximizable,closeMaximizable,handleSubmit,toggleDialog,resetForm,<%=computeFieldsStr%>,
+       <%=treeFieldNames%>
+       openMaximizable,openEditMaximizable,closeMaximizable,handleSubmit,toggleDialog,resetForm,<%=computeFieldsStr%>
 
 
      

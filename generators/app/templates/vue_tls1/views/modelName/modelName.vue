@@ -54,7 +54,20 @@
                     computeFields.push(toName+displayFieldFirstLow+'s');
                 }
 
-                const computeFieldsStr=computeFields.filter((item)=>item).join(',');
+                
+
+                let computeFieldsStr=computeFields.filter((item)=>item).join(',');
+                if(computeFieldsStr){
+                    computeFieldsStr+=',';
+                }
+
+
+                let treeFieldNames = cols.filter((col)=>{
+                    return (col.javadoc.trim()==='所属辖区'||col.javadoc.trim().endsWith('字典树'))
+                }).map(c=>(c.name+'Nodes')).join(',');
+                if(treeFieldNames){
+                    treeFieldNames+=',';
+                }
 
             %>
 
@@ -175,7 +188,7 @@
                                     </label>
 
                                 <%} else{ %>
-                                    <label for="<%=col.name %>"><%=col.javadoc.replaceAll('_字典项','') %></label>
+                                    <label for="<%=col.name %>"><%=col.javadoc.replaceAll('_字典项','').replaceAll('字典树','') %></label>
                               <%}%>
 
                              <% if(col.javadoc.trim().endsWith('_字典项')) { %>
@@ -186,6 +199,15 @@
 
                                          <Dropdown  id="<%=col.name %>" :options="<%=col.name%>s" optionLabel="name" optionValue="value"
                                            v-model="state.<%=col.name %>" :showTime="true" :showSeconds="true" dateFormat="yy-mm-dd" class=" w-full"/>
+                                    <%}%>
+                             <%} else if(col.javadoc.trim()==='所属辖区'||col.javadoc.trim().endsWith('字典树')) { %>
+
+                                    <%if(col.validations.length>0){ %>
+                                      <TreeSelect id="<%=col.name %>" v-model="v$.<%=col.name %>.$model" :class="{'p-invalid':v$.<%=col.name %>.$invalid && submitted}" :options="<%=col.name %>Nodes" placeholder="请选择..." class=" w-full"></TreeSelect>
+                                      
+                                    <%} else{ %>
+                                         <TreeSelect id="<%=col.name %>" v-model="state.<%=col.name %>"  :options="<%=col.name %>Nodes" placeholder="请选择..." class=" w-full"></TreeSelect>
+                                         
                                     <%}%>
 
                              <%} else if(col.type==='Instant'||col.type==='LocalDate'||col.type==='ZonedDateTime') { %>
@@ -430,17 +452,25 @@ export default {
                 filters: filters2.value
             };
 
-<% for (let col of cols) {%>
+<% for (let col of cols) {-%>
     <%if(col.javadoc.trim().endsWith('_字典项') ){
-      const toColName =  col.name.charAt(0).toUpperCase()+col.name.substring(1);
-      
+      const toColName =  col.name.charAt(0).toUpperCase()+col.name.substring(1); 
     %>
-
             <%=entityNameSmall%>Service.value.get<%=toColName%>s().then((res:any)=>{
                 <%=col.name%>s.value= res.data;
             });
-
     <%}%>
+     <% if(col.javadoc.trim()==='所属辖区'||col.javadoc.trim().endsWith('字典树')){
+         let param = '';
+         if(col.javadoc.trim().endsWith('字典树')){
+             param = col.name;
+         }
+         
+      %>  
+            <%=entityNameSmall%>Service.value.getWisdomDataDicsTree('<%=param%>').then((res)=>{
+                <%=col.name%>Nodes.value= res;
+            });
+     <%}%>
 
 <%}%>
 
@@ -477,14 +507,13 @@ export default {
            
         });
         const loading2 = ref(false);
-<% for (let col of cols) {%>
-    <%if(col.javadoc.trim().endsWith('_字典项') ){
+<%_ for (let col of cols) {-%>
+    <%_if(col.javadoc.trim().endsWith('_字典项') ){
       const toColName =  col.name.charAt(0).toUpperCase()+col.name.substring(1);
       
     %>        
         const <%=col.name%>s = ref([]);
-     <%}%>
-
+     <%}-%>
 <%}%>      
         const { dateFormat } = DateFormat();
         const {
@@ -501,6 +530,7 @@ export default {
           resetForm,
           isAdd,
           <%=computeFieldsStr%>
+          <%=treeFieldNames%>
        } = newAdd(<%=entityNameSmall%>Service);
 
         //产品信息
@@ -593,64 +623,45 @@ export default {
         };
 
         
-<% for (let col of cols) {%>
-    <%if(col.javadoc.trim().endsWith('_字典项') ){
-      const toColName =  col.name.charAt(0).toUpperCase().toUpperCase()+col.name.substring(1);
-      
-    %>        
+<%_ for (let col of cols) {-%>
+    <%_if(col.javadoc.trim().endsWith('_字典项') ){
+      const toColName =  col.name.charAt(0).toUpperCase().toUpperCase()+col.name.substring(1); 
+    -%>        
         const getNameOf<%=toColName%>s = (value:any)=>{
             let c = <%=col.name%>s.value.find((item:any)=>{
                 return item.value === value;
             });
             return c?.name?c.name:value;
         }
-     <%}%>
+     <%_}-%>
+<%_}-%>          
 
-<%}%>          
-
-        //manyToOne选择
-<% for(let manyToOne of manyToOnes){ 
+        
+<%_for(let manyToOne of manyToOnes){ 
     const toColName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
-%>
+-%>      //manyToOne选择
         const doAdd<%=manyToOne.to.name%>=(eles:any)=>{
-
-            
-              
-           
                 state.<%=toColName%>= eles[0];
-            
-            
-
-            //alert(JSON.stringify(types));
         }
-<%}%>
+<%}-%>
 
-<% for(let manyToMany of manyToManys){ 
+<%_ for(let manyToMany of manyToManys){ 
      const toColName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
-%>
+-%>
         const doAdd<%=manyToMany.to.name%>=(eles:any)=>{
-
-            
-               //多模式
-               
+               //多模式    
                state.<%=toColName%>s= JSON.parse(JSON.stringify(eles));
-           
-                
-            
-            
-
-           // alert(JSON.stringify(types));
         }
-<%}%>
+<%}-%>
         
 
        
-<% for(let manyToOne of manyToOnes){
+<%_ for(let manyToOne of manyToOnes){
     const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
     const toEntity = app.entities.find((e)=>{
         return  e.name ===manyToOne.to.name;
     });
- %>
+ -%>
         const <%=toName%>Ref:any = ref(null);
         const showSelect<%=toEntity.name%> = ()=>{
             const <%=entityNameSmall%> = JSON.parse(JSON.stringify(state));
@@ -662,14 +673,14 @@ export default {
         
             <%=toName%>Ref.value.showMe(<%=toName%>s);
         }
-<%}%>
+<%}-%>
 
 
-<% for(let manyToMany of manyToManys){
+<%_ for(let manyToMany of manyToManys){
     const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
     const toEntity = app.entities.find((e)=>{
         return  e.name ===manyToMany.to.name;
-    }); %>
+    }); -%>
         const <%=toName%>Ref:any = ref(null);
         const showSelect<%=toEntity.name%> = ()=>{
             const <%=entityNameSmall%> = JSON.parse(JSON.stringify(state));
@@ -679,7 +690,7 @@ export default {
             }
             <%=toName%>Ref.value.showMe(<%=toName%>s);
         }
-<%}%>
+<%}-%>
 
         
 
@@ -688,30 +699,23 @@ export default {
         return {  <%=entityNameSmall%>s,loading2,filters2,displayMaximizable,openMaximizable,openEditMaximizable,closeMaximizable,state, v$, handleSubmit, toggleDialog, submitted ,resetForm ,showMessage ,editingRows,onRowEditSave ,totalRecords,onPage,onFilter,loadLazyData,lazyParams,dt,onSort,
             selectAll,selected<%=entityName%>s,onSelectAllChange,onRowSelect,onRowUnselect,
             deleteSelected<%=entityName%>s,confirmDeleteSelected,delete<%=entityName%>sDialog,
-
-
-
-            
-<% for (let col of cols) {%>
+<%_for (let col of cols) {-%>
     <%if(col.javadoc.trim().endsWith('_字典项') ){
       const toColName =  col.name.charAt(0).toUpperCase()+col.name.substring(1);
-      
-    %>        
-        <%=col.name-%>s,getNameOf<%=toColName-%>s,
-     <%}%>
-
-<%}%>  
-
+    -%>        
+        <%=col.name-%>s,getNameOf<%=toColName%>s,
+     <%_}-%>
+<%_}-%>
             displayCPXX,
             dateFormat,isAdd,
+<%=treeFieldNames-%>
 <% for(let manyToOne of manyToOnes){ 
      const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
 
 %>
             <%=toName-%>Ref,
             doAdd<%=manyToOne.to.name%>,showSelect<%=manyToOne.to.name-%>,
-
-<%}%>
+<%_}-%>
 <% for(let manyToMany of manyToManys){
     const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
 
@@ -720,7 +724,7 @@ export default {
             doAdd<%=manyToMany.to.name%>,showSelect<%=manyToMany.to.name-%>,
            
 
-<%}-%> <%=computeFieldsStr -%>,
+<%}-%> <%=computeFieldsStr -%>
         }
     }
 }

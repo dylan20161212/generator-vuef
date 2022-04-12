@@ -213,5 +213,24 @@ export default class <%=entityName%>Service {
 	};
 
 
+	/**获取字典树或者所属辖区 */
+	getWisdomDataDicsTree(key:any){//ADD
+		const api = "/api/wisdom-data-tree-dics";
+		let param = '';
+		if(key){
+			param = "?key.equals="+key;
+		}
+		
+		return request({
+			url: api+param,
+			method: 'GET',
+			json: true
+	
+		});
+
+	};
+
+
+
 	
 }
