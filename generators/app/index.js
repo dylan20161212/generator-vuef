@@ -16,8 +16,8 @@ module.exports = class extends Generator {
 	{
         type: 'input',
         name: 'entityName',
-        message: '请输入您的要生成的entity名称(默认值*所有）',
-        default: 'JdlTestSimple'
+        message: '请输入您的要生成的entity名称(默认值*代表所有，多个entity用英文,分隔）',
+        default: '*'
     },
     {
         type: 'input',
@@ -55,9 +55,22 @@ module.exports = class extends Generator {
 	this.context = {};
     this.context["app"] = result;
 	//console.log(JSON.stringify(this.context));
-	if(result && this.answers.enityName !=='*'){
+	//console.log("this.answers.entityName----------------"+this.answers.entityName);
+	if(result && this.answers.entityName !=='*'){
 		const entityNames = this.answers.entityName.split(',');
-		
+		//console.log("execute----------------0");
+		for(let entityName of entityNames){
+			this.context.entityName = entityName;
+			this._genViewFile();
+
+		}
+
+	}
+
+
+	if(result && this.answers.entityName ==='*'){
+		//console.log("execute----------------1");
+		const entityNames = result.entities.map(entity=>entity.name);
 		for(let entityName of entityNames){
 			this.context.entityName = entityName;
 			this._genViewFile();
