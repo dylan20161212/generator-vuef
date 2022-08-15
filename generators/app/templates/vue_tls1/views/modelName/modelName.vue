@@ -390,7 +390,7 @@
          <% for(let manyToMany of manyToManys){
              const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
          %>
-            <<%=manyToMany.to.name%>s selectionModel="multiple"  @doAdd<%=manyToMany.to.name%>="doAdd<%=manyToMany.to.name%>" @doDeleteSelected<%=manyToOne.to.name%>="doDeleteSelected<%=manyToOne.to.name%>" ref="<%=toName%>Ref">
+            <<%=manyToMany.to.name%>s selectionModel="multiple"  @doAdd<%=manyToMany.to.name%>="doAdd<%=manyToMany.to.name%>" @doDeleteSelected<%=manyToMany.to.name%>="doDeleteSelected<%=manyToMany.to.name%>" ref="<%=toName%>Ref">
                 
             </<%=manyToMany.to.name%>s>
         <%}%>
@@ -664,11 +664,11 @@ export default {
                state.<%=toColName%>s= JSON.parse(JSON.stringify(eles));
         }
 
-        const doDeleteSelected<%=manyToOne.to.name%>=(ids:any[])=>{
+        const doDeleteSelected<%=manyToMany.to.name%>=(ids:any[])=>{
             for(let id of ids){
-                for(let i =0 ;i<state.<%=toColName%>.length;i++){
-                    if(id === state.<%=toColName%>[i].id){
-                        state.<%=toColName%>.splice(i,1);
+                for(let i =0 ;i<state.<%=toColName%>s.length;i++){
+                    if(id === state.<%=toColName%>s[i].id){
+                        state.<%=toColName%>s.splice(i,1);
                     }
                 }
             }

@@ -1,0 +1,9 @@
+{
+  "generator-vuegen": {
+    "promptValues": {
+      "jdlName": "E:\\ly\\ws\\统一门户\\wisdomcity\\jdls\\systembase.jdl",
+      "entityName": "Role",
+      "genPath": "E:\\ly\\ws\\统一门户\\mygenerators\\gencode"
+    }
+  }
+}
