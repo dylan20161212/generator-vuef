@@ -382,7 +382,7 @@
           const toName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
 
         %>
-            <<%=manyToOne.to.name%>s selectionModel="single"  @doAdd<%=manyToOne.to.name%>="doAdd<%=manyToOne.to.name%>" ref="<%=toName%>Ref">
+            <<%=manyToOne.to.name%>s selectionModel="single"  @doAdd<%=manyToOne.to.name%>="doAdd<%=manyToOne.to.name%>" @doDeleteSelected<%=manyToOne.to.name%>="doDeleteSelected<%=manyToOne.to.name%>" ref="<%=toName%>Ref">
                 
             </<%=manyToOne.to.name%>s>
         <%}%>
@@ -390,7 +390,7 @@
          <% for(let manyToMany of manyToManys){
              const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
          %>
-            <<%=manyToMany.to.name%>s selectionModel="multiple"  @doAdd<%=manyToMany.to.name%>="doAdd<%=manyToMany.to.name%>" ref="<%=toName%>Ref">
+            <<%=manyToMany.to.name%>s selectionModel="multiple"  @doAdd<%=manyToMany.to.name%>="doAdd<%=manyToMany.to.name%>" @doDeleteSelected<%=manyToOne.to.name%>="doDeleteSelected<%=manyToOne.to.name%>" ref="<%=toName%>Ref">
                 
             </<%=manyToMany.to.name%>s>
         <%}%>
@@ -639,10 +639,21 @@ export default {
         
 <%_for(let manyToOne of manyToOnes){ 
     const toColName =  manyToOne.to.name.charAt(0).toLowerCase()+manyToOne.to.name.substring(1);
--%>      //manyToOne选择
-        const doAdd<%=manyToOne.to.name%>=(eles:any)=>{
-                state.<%=toColName%>= eles[0];
-        }
+-%> //manyToOne选择
+    const doAdd<%=manyToOne.to.name%>=(eles:any)=>{
+            state.<%=toColName%>= eles[0];
+    }
+
+    const doDeleteSelected<%=manyToOne.to.name%>=(ids:any[])=>{
+            for(let id of ids){
+                for(let i =0 ;i<state.<%=toColName%>.length;i++){
+                    if(id === state.<%=toColName%>[i].id){
+                        state.<%=toColName%>.splice(i,1);
+                    }
+                }
+            }
+    }
+
 <%}-%>
 
 <%_ for(let manyToMany of manyToManys){ 
@@ -651,6 +662,16 @@ export default {
         const doAdd<%=manyToMany.to.name%>=(eles:any)=>{
                //多模式    
                state.<%=toColName%>s= JSON.parse(JSON.stringify(eles));
+        }
+
+        const doDeleteSelected<%=manyToOne.to.name%>=(ids:any[])=>{
+            for(let id of ids){
+                for(let i =0 ;i<state.<%=toColName%>.length;i++){
+                    if(id === state.<%=toColName%>[i].id){
+                        state.<%=toColName%>.splice(i,1);
+                    }
+                }
+            }
         }
 <%}-%>
         
@@ -715,6 +736,7 @@ export default {
 %>
             <%=toName-%>Ref,
             doAdd<%=manyToOne.to.name%>,showSelect<%=manyToOne.to.name-%>,
+            doDeleteSelected<%=manyToOne.to.name%>,
 <%_}-%>
 <% for(let manyToMany of manyToManys){
     const toName =  manyToMany.to.name.charAt(0).toLowerCase()+manyToMany.to.name.substring(1);
@@ -722,7 +744,7 @@ export default {
  %>
             <%=toName-%>Ref,
             doAdd<%=manyToMany.to.name%>,showSelect<%=manyToMany.to.name-%>,
-           
+            doDeleteSelected<%=manyToMany.to.name%>,
 
 <%}-%> <%=computeFieldsStr -%>
         }

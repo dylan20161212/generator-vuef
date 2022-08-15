@@ -196,7 +196,7 @@
         props: {
            selectionModel:String
         },
-        emits: ['doAdd<%=entityName%>'],
+        emits: ['doAdd<%=entityName%>','doDeleteSelected<%=entityName%>'],
         setup(props, { emit }) {
 
             onMounted(() => {
@@ -475,6 +475,8 @@
                     }
                     
                 }
+
+                 emit('doDeleteSelected<%=entityName%>',[id]);
 
             }
 
