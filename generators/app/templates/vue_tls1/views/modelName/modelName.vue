@@ -11,7 +11,7 @@
                const cols = entity.body;
 
                //const colNamesStr = cols.map(item=>item.name).join(',');
-               const colNamesStr1 = cols.map(item=>"'"+item.name+"'").join(',');
+               const colNamesStr1 = cols.map(item=>("'"+item.name+"'")).join(',');
 
                const manyToOnes = app.relationships.filter((item)=>{
                    return item.from.name === entityName && (item.cardinality==='ManyToOne'||item.cardinality==='OneToOne');
