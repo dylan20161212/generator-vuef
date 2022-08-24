@@ -75,7 +75,7 @@
 
             <DataTable :value="<%=entityNameSmall%>s" :paginator="true" :totalRecords="totalRecords"  :rows="10" @page="onPage($event)" @sort="onSort($event)" sortMode="multiple" :lazy="true" class="p-datatable-customers"  ref="dt"
                 dataKey="id" v-model:filters="filters2" @filter="onFilter($event)" filterDisplay="row" :loading="loading2" editMode="row" v-model:editingRows="editingRows" @row-edit-save="onRowEditSave" responsiveLayout="scroll"
-                :globalFilterFields="[<%=colNamesStr1%>]"
+                :globalFilterFields="[<%-colNamesStr1%>]"
                 paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
                  v-model:selection="selected<%=entity.name%>s" :selectAll="selectAll" @select-all-change="onSelectAllChange" @row-select="onRowSelect" @row-unselect="onRowUnselect"
                  :rowsPerPageOptions="[10,25,50]"
